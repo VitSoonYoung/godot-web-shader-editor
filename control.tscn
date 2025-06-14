@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=3 uid="uid://c0u00gg8icfs1"]
+
+[ext_resource type="Script" uid="uid://k5d6cdd4w8ya" path="res://control.gd" id="1_62e2m"]
+[ext_resource type="Shader" uid="uid://cvmr5vt6mkflq" path="res://control.gdshader" id="2_ee4bf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtu10"]
+content_margin_left = 15.0
+content_margin_right = 15.0
+bg_color = Color(0.25098, 0.266667, 0.298039, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kbped"]
+shader = ExtResource("2_ee4bf")
+shader_parameter/color_white = Color(1, 1, 1, 1)
+shader_parameter/color_black = Color(0, 0, 0, 0)
+shader_parameter/size = 32.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_62e2m")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.133333, 0.160784, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Control3" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Control3"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/Control3/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/Control3/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtu10")
+text = "Compile Shader (Alt + Enter)"
+
+[node name="CheckBoxAutoCompile" type="CheckBox" parent="HBoxContainer/Control3/MarginContainer/HBoxContainer"]
+layout_mode = 2
+button_pressed = true
+text = "Auto-compile"
+
+[node name="TextEdit" type="TextEdit" parent="HBoxContainer/Control3"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Enter shader code..."
+
+[node name="Control2" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Control2"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="HBoxContainer/Control2/MarginContainer"]
+layout_mode = 2
+text = "OUTPUT"
+
+[node name="Control" type="Control" parent="HBoxContainer/Control2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Background" type="ColorRect" parent="HBoxContainer/Control2/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasItemShaderView" type="ColorRect" parent="HBoxContainer/Control2/Control"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_kbped")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="HBoxContainer/Control3/MarginContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="toggled" from="HBoxContainer/Control3/MarginContainer/HBoxContainer/CheckBoxAutoCompile" to="." method="_on_check_box_toggled"]
+[connection signal="text_changed" from="HBoxContainer/Control3/TextEdit" to="." method="_on_text_edit_text_changed"]
