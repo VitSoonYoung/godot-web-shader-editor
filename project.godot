@@ -10,10 +10,19 @@ config_version=5
 
 [application]
 
-config/name="godot-web-shader"
+config/name="godot-web-shader-editor"
 run/main_scene="uid://c0u00gg8icfs1"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[debug]
+
+file_logging/enable_file_logging=true
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [input]
 
